@@ -3,11 +3,14 @@ import logo from './logo.svg';
 import './App.css';
 import axios from 'axios'
 
+import ResourceCards from './components/resourceCards'
+
 class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      color: 'blue'
+      color: 'blue',
+      titles: ['is one', 'is two']
     }
 
     this.testFunction = this.testFunction.bind(this)
@@ -20,17 +23,19 @@ class App extends Component {
   }
 
   render() {
-
+    const cardStuff = this.state.titles.map(title => {
+      return <ResourceCards resourceTitle={title}/>
+    })
+    
 
     return (
       <div className="App">
         <header className="App-header" style={{'background-color': this.state.color}}>
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Dev mountain thing</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div>
+          {cardStuff}
+        </div>
         <h2>{this.state.color}</h2>
         <button onClick={() => this.testFunction()}>Does thing</button>
       </div>
