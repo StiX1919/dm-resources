@@ -11,13 +11,16 @@ class App extends Component {
     this.state = {
       color: 'blue',
       newTitle: '',
-      titles: ['is one', 'is two']
+      titles: ['is one', 'is two'],
+      activeResource: undefined,
+      resourceList: false
     }
 
     this.testFunction = this.testFunction.bind(this)
 
     this.enterCardTitle = this.enterCardTitle.bind(this)
     this.addCardTitle = this.addCardTitle.bind(this)
+    this.openResources = this.openResources.bind(this)
   }
 
   testFunction() {
@@ -38,9 +41,13 @@ class App extends Component {
     
   }
 
+  openResources(index, title) {
+    this.setState({activeResource: index, resourceList: true})
+  }
+
   render() {
-    const cardStuff = this.state.titles.map(title => {
-      return <ResourceCards resourceTitle={title}/>
+    const cardStuff = this.state.titles.map((title, index)=> {
+      return <ResourceCards key={index} resourceTitle={title} onClick={() => this.openResources(index, title)}/>
     })
     
 
@@ -49,6 +56,11 @@ class App extends Component {
         <header className="App-header" style={{'background-color': this.state.color}}>
           <h1 className="App-title">Dev mountain thing</h1>
         </header>
+        <div>
+          {this.state.openResources === true &&
+            <LinkCards />
+          }
+        </div>
         <div>
           {cardStuff}
         </div>
