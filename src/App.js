@@ -1,7 +1,10 @@
 import React, { Component } from "react";
-import "./App.css";
-import axios from "axios";
+// putting redux in App.js for testing,
+// should create new views and not connect app.js component
+import { connect } from "react-redux";
 
+import "./App.css";
+import { getResources } from "./ducks/resources";
 import ResourceCard from "./components/ResourceCard/ResourceCard";
 
 class App extends Component {
@@ -13,16 +16,11 @@ class App extends Component {
       titles: ["is one", "is two"]
     };
 
-    this.testFunction = this.testFunction.bind(this);
-
     this.enterCardTitle = this.enterCardTitle.bind(this);
     this.addCardTitle = this.addCardTitle.bind(this);
   }
-
-  testFunction() {
-    axios.get("/api/testThing").then(res => {
-      this.setState({ color: res.data });
-    });
+  componentDidMount() {
+    this.props.getResources();
   }
   enterCardTitle(e) {
     this.setState({ newTitle: e.target.value });
@@ -36,15 +34,15 @@ class App extends Component {
   }
 
   render() {
-    const cardStuff = this.state.titles.map((title, index) => {
-      return <ResourceCard key={index} resourceTitle={title} />;
+    const cardStuff = this.props.resources.map((resource, index) => {
+      return <ResourceCard key={index} resourceTitle={resource.title} />;
     });
 
     return (
       <div className="App">
         <header
           className="App-header"
-          style={{ "background-color": this.state.color }}
+          style={{ backgroundColor: this.state.color }}
         >
           <h1 className="App-title">Dev mountain thing</h1>
         </header>
@@ -61,11 +59,11 @@ class App extends Component {
         >
           Add New Card
         </button>
-        <h2>{this.state.color}</h2>
-        <button onClick={() => this.testFunction()}>Does thing</button>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => Object.assign({}, state.resources, state.user);
+
+export default connect(mapStateToProps, { getResources })(App);
