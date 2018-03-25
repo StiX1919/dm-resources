@@ -5,7 +5,10 @@ const cors = require("cors");
 const session = require("express-session");
 const massive = require("massive");
 
-const { getResources } = require(`${__dirname}/controllers/resourceCtrl`);
+const {
+  getResources,
+  addResource
+} = require(`${__dirname}/controllers/resourceCtrl`);
 
 const port = 3001;
 
@@ -32,6 +35,7 @@ app.use(
 );
 
 app.get("/api/resources", getResources);
+app.post("/api/resources", addResource);
 
 //LISTENING
 app.listen(port, () => {
