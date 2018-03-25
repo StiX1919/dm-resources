@@ -23,6 +23,7 @@ export default function resources(state = initialState, action) {
     case `${GET_RESOURCES}_PENDING`:
       return Object.assign({}, state, { isLoading: true });
     case `${GET_RESOURCES}_FULFILLED`:
+      console.log(action.payload);
       return Object.assign({}, state, {
         resources: action.payload,
         isLoading: false

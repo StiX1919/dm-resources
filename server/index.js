@@ -8,13 +8,19 @@ const massive = require("massive");
 const { getResources } = require(`${__dirname}/controllers/resourceCtrl`);
 
 const port = 3001;
+
 const app = express();
 
 //SAVED FOR BUILD
 //app.use(express.static(`${__dirname}/public/build`));
 //
 
-//MASSIVE
+massive(process.env.CONNECTION_STRING)
+  .then(db => {
+    app.set("db", db);
+  })
+  .catch(err => console.log(err));
+
 app.use(json());
 app.use(cors());
 app.use(

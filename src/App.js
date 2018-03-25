@@ -34,9 +34,11 @@ class App extends Component {
   }
 
   render() {
-    const cardStuff = this.props.resources.map((resource, index) => {
-      return <ResourceCard key={index} resourceTitle={resource.title} />;
-    });
+    const cardStuff =
+      this.props.resources[0] &&
+      this.props.resources.map((resource, index) => {
+        return <ResourceCard key={index} resourceTitle={resource.title} />;
+      });
 
     return (
       <div className="App">
