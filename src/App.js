@@ -59,7 +59,7 @@ class App extends Component {
             this.addCardTitle(this.state.newTitle, this.state.titles);
           }}
         >
-          Add New Card
+          delete this...
         </button>
       </div>
     );
