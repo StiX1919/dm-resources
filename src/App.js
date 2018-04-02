@@ -42,13 +42,19 @@ class App extends Component {
         return <ResourceCard key={index} resourceTitle={resource.title} />;
       });
 
+    const filterSelections = 
+    this.props.choices[0] &&
+    this.props.choices.map((choice, index) => {
+        return <h2 className="filters">{choice}</h2>
+    })
+
     return (
       <div className="App">
         <header className="sidebar">
           <img className="logo" src='https://s3.amazonaws.com/devmountain/www/img/dm_white_logo.png' alt=""/>
 
-          <div>
-            
+          <div className='filterContainer'>
+            {filterSelections}
           </div>
         </header>
 

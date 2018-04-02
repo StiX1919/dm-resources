@@ -14,7 +14,8 @@ export function getResources() {
 
 const initialState = {
   resources: [],
-  isLoading: false
+  isLoading: false,
+  choices: ['one', 'two', 'three']
 };
 
 export default function resources(state = initialState, action) {
