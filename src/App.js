@@ -45,7 +45,7 @@ class App extends Component {
     const filterSelections = 
     this.props.choices[0] &&
     this.props.choices.map((choice, index) => {
-        return <h2 className="filters">{choice}</h2>
+        return <div className='filterHolder'><h2 className="filters">{choice}</h2></div>
     })
 
     return (

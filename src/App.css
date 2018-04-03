@@ -17,16 +17,21 @@
   width: 100%
 }
 
+.filterHolder {
+  height: 100%;
+  padding: 0px 40px;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
 .filters {
   text-transform: uppercase;
   font-weight: 700;
   font-size: 15px;
-  -webkit-transition: .3s;
-  transition: .3s;
-  margin-left: 40px
+  
 }
-.filters:hover {
-  background-color: #2aabe2
+.filterHolder:hover {
+  background-color: #2aabe2;
 }
 
 .sidebar {
