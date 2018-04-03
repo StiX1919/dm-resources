@@ -7,6 +7,8 @@ import "./App.css";
 import { getResources } from "./ducks/resources";
 import ResourceCard from "./components/ResourceCard/ResourceCard";
 
+import logo from './images/DevMtnLogoNoBG.png'
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -40,15 +42,24 @@ class App extends Component {
         return <ResourceCard key={index} resourceTitle={resource.title} />;
       });
 
+    const filterSelections = 
+    this.props.choices[0] &&
+    this.props.choices.map((choice, index) => {
+        return <div className='filterHolder'><h2 className="filters">{choice}</h2></div>
+    })
+
     return (
       <div className="App">
-        <header
-          className="App-header"
-          style={{ backgroundColor: this.state.color }}
-        >
-          <h1 className="App-title">Dev mountain thing</h1>
+        <header className="sidebar">
+          <img className="logo" src='https://s3.amazonaws.com/devmountain/www/img/dm_white_logo.png' alt=""/>
+
+          <div className='filterContainer'>
+            {filterSelections}
+          </div>
         </header>
+
         <div>{cardStuff}</div>
+
         <input
           onChange={e => this.enterCardTitle(e)}
           value={this.state.newTitle}
@@ -59,12 +70,13 @@ class App extends Component {
             this.addCardTitle(this.state.newTitle, this.state.titles);
           }}
         >
-          Add New Card
+          delete this...
         </button>
       </div>
     );
   }
 }
+
 
 const mapStateToProps = state => Object.assign({}, state.resources, state.user);
 
