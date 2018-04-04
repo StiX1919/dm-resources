@@ -2,7 +2,7 @@ const getResources = (req, res) => {
   req.app
     .get("db")
     .getResources()
-    .then(response => res.status(200).json(response))
+    .then(response => {console.log('RESPONSE', response); res.status(200).json(response)})
     .catch(err => res.status(500).json(err));
 };
 
@@ -17,7 +17,16 @@ const addResource = (req, res) => {
     .catch(err => res.status(500).json(err));
 };
 
+const getTopics = (req, res) => {
+  req.app
+    .get("db")
+    .getTopics()
+    .then(response => {console.log('TOPICS', response); res.status(200).json(response)})
+    .catch(err => res.status(500).json(err));
+}
+
 module.exports = {
   getResources,
-  addResource
+  addResource,
+  getTopics
 };

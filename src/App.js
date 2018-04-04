@@ -4,7 +4,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import "./App.css";
-import { getResources } from "./ducks/resources";
+import { getResources,
+        getTopics } from "./ducks/resources";
 import ResourceCard from "./components/ResourceCard/ResourceCard";
 
 import logo from './images/DevMtnLogoNoBG.png'
@@ -23,6 +24,7 @@ class App extends Component {
   }
   componentDidMount() {
     this.props.getResources();
+    this.props.getTopics();
   }
   enterCardTitle(e) {
     this.setState({ newTitle: e.target.value });
@@ -39,15 +41,14 @@ class App extends Component {
     const cardStuff =
       this.props.resources[0] &&
       this.props.resources.map((resource, index) => {
-        return <ResourceCard key={index} resourceTitle={resource.title} />;
+        return <ResourceCard key={index} resourceTitle={resource.resource_title} />;
       });
 
     const filterSelections = 
-    this.props.choices[0] &&
-    this.props.choices.map((choice, index) => {
-        return <div className='filterHolder'><h2 className="filters">{choice}</h2></div>
+    this.props.topics[0] &&
+    this.props.topics.map((topic, index) => {
+        return <div className='filterHolder'><h2 className="filters">{topic.general_title}</h2></div>
     })
-
     return (
       <div className="App">
         <header className="sidebar">
@@ -80,4 +81,4 @@ class App extends Component {
 
 const mapStateToProps = state => Object.assign({}, state.resources, state.user);
 
-export default connect(mapStateToProps, { getResources })(App);
+export default connect(mapStateToProps, { getResources, getTopics })(App);
