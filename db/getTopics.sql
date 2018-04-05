@@ -1,1 +1,1 @@
-SELECT * FROM general_topic;
+SELECT * FROM topic;

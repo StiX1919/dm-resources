@@ -18,19 +18,22 @@
 }
 
 .filterHolder {
-  height: 100%;
-  padding: 0px 40px;
-  -webkit-transition: .3s;
-  transition: .3s;
+  display: flex;
+  justify-content: center;
+  height: 50px;
+
 }
 
 .filters {
   text-transform: uppercase;
   font-weight: 700;
   font-size: 15px;
-  
+  -webkit-transition: .3s;
+  width: 100%;
+  height: 50px;
+  transition: .3s;
 }
-.filterHolder:hover {
+.filters:hover {
   background-color: #2aabe2;
 }
 

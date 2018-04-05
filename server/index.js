@@ -8,6 +8,7 @@ const massive = require("massive");
 const {
   getResources,
   addResource,
+  getGeneralTopics,
   getTopics
 } = require(`${__dirname}/controllers/resourceCtrl`);
 
@@ -38,7 +39,9 @@ app.use(
 app.get("/api/resources", getResources);
 app.post("/api/resources", addResource);
 
-app.get("/api/topics", getTopics);
+app.get("/api/generalTopics", getGeneralTopics);
+
+app.get("/api/topics", getTopics)
 
 //LISTENING
 app.listen(port, () => {
