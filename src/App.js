@@ -4,7 +4,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import "./App.css";
-import { getResources } from "./ducks/resources";
+import { getResources,
+        getGeneralTopics,
+        getTopics } from "./ducks/resources";
 import ResourceCard from "./components/ResourceCard/ResourceCard";
 
 import logo from './images/DevMtnLogoNoBG.png'
@@ -15,14 +17,22 @@ class App extends Component {
     this.state = {
       color: "blue",
       newTitle: "",
-      titles: ["is one", "is two"]
+      titles: ["is one", "is two"],
+      
+      selectedIndex: 0,
+      GTID: 0,
+      openTopics: false
     };
 
     this.enterCardTitle = this.enterCardTitle.bind(this);
     this.addCardTitle = this.addCardTitle.bind(this);
+    this.selectGeneralTopic = this.selectGeneralTopic.bind(this)
   }
+
   componentDidMount() {
     this.props.getResources();
+    this.props.getGeneralTopics();
+    this.props.getTopics();
   }
   enterCardTitle(e) {
     this.setState({ newTitle: e.target.value });
@@ -35,18 +45,40 @@ class App extends Component {
     }
   }
 
+  selectGeneralTopic(id, index) {
+    if(this.state.openTopics === false) {
+      this.setState({selectedIndex: index, GTID: id, openTopics: true})
+    }
+    else this.setState({selectedIndex: 0, GTID: 0, openTopics: false})
+    
+  }
+
+
   render() {
     const cardStuff =
       this.props.resources[0] &&
       this.props.resources.map((resource, index) => {
-        return <ResourceCard key={index} resourceTitle={resource.title} />;
+        return <ResourceCard key={index} resourceTitle={resource.resource_title} />;
       });
 
-    const filterSelections = 
-    this.props.choices[0] &&
-    this.props.choices.map((choice, index) => {
-        return <div className='filterHolder'><h2 className="filters">{choice}</h2></div>
+    const topics = 
+      this.props.topics[0] &&
+      this.props.topics.map((topics, index) => {
+        return <div><h2 className="filters">{topics.topic_title}</h2></div>
     })
+
+    const generalTopics = 
+      this.props.generalTopics[0] &&
+      this.props.generalTopics.map((topic, index) => {
+        return <div className='filterHolder' onClick={() => this.selectGeneralTopic(index, topic.id)} >
+                  <h2 className="general-filters">{topic.general_title}</h2>
+                  {this.state.openTopics === true &&
+                    topics
+                  }
+                </div>
+    })
+
+    
 
     return (
       <div className="App">
@@ -54,7 +86,7 @@ class App extends Component {
           <img className="logo" src='https://s3.amazonaws.com/devmountain/www/img/dm_white_logo.png' alt=""/>
 
           <div className='filterContainer'>
-            {filterSelections}
+            {generalTopics}
           </div>
         </header>
 
@@ -80,4 +112,4 @@ class App extends Component {
 
 const mapStateToProps = state => Object.assign({}, state.resources, state.user);
 
-export default connect(mapStateToProps, { getResources })(App);
+export default connect(mapStateToProps, { getResources, getGeneralTopics, getTopics })(App);
