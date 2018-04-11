@@ -71,7 +71,7 @@ class App extends Component {
       this.props.generalTopics[0] &&
       this.props.generalTopics.map((topic, index) => {
         return <div className='filterHolder' onClick={() => this.selectGeneralTopic(index, topic.id)} >
-                  <h2 className="filters">{topic.general_title}</h2>
+                  <h2 className="general-filters">{topic.general_title}</h2>
                   {this.state.openTopics === true &&
                     topics
                   }
