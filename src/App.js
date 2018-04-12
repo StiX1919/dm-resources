@@ -21,7 +21,7 @@ class App extends Component {
       
       selectedIndex: 0,
       GTID: 0,
-      openTopics: false
+      openGeneralTopic: false
     };
 
     this.enterCardTitle = this.enterCardTitle.bind(this);
@@ -45,11 +45,11 @@ class App extends Component {
     }
   }
 
-  selectGeneralTopic(id, index) {
-    if(this.state.openTopics === false) {
-      this.setState({selectedIndex: index, GTID: id, openTopics: true})
+  selectGeneralTopic(index, id) {
+    if(this.state.openGeneralTopic === false) {
+      this.setState({selectedIndex: index, GTID: id, openGeneralTopic: true})
     }
-    else this.setState({selectedIndex: 0, GTID: 0, openTopics: false})
+    else this.setState({selectedIndex: 0, GTID: 0, openGeneralTopic: false})
     
   }
 
@@ -64,15 +64,23 @@ class App extends Component {
     const topics = 
       this.props.topics[0] &&
       this.props.topics.map((topics, index) => {
-        return <div><h2 className="filters">{topics.topic_title}</h2></div>
+        if (topics.general_topic_id === this.state.GTID ){
+          return <div><h2 className="filters">{topics.topic_title}</h2></div>
+        }
     })
 
     const generalTopics = 
       this.props.generalTopics[0] &&
       this.props.generalTopics.map((topic, index) => {
-        return <div className='filterHolder' onClick={() => this.selectGeneralTopic(index, topic.id)} >
-                  <h2 className="general-filters">{topic.general_title}</h2>
-                  {this.state.openTopics === true &&
+        return <div className='filterHolder'>
+                  {this.state.openGeneralTopic === false && 
+                    <h2 className="general-filters" onClick={() => this.selectGeneralTopic(index, topic.id)} >{topic.general_title}</h2>
+                  }
+                  
+                  {this.state.openGeneralTopic === true &&
+                    <h2 className="general-filters" onClick={() => this.selectGeneralTopic(0, 0)} >Back</h2>
+                  }
+                  {this.state.openGeneralTopic === true &&
                     topics
                   }
                 </div>
