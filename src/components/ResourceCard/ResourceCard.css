@@ -1,6 +1,6 @@
 .resourceCard {
-    height: 200px;
-    width: 300px;
-    border-radius: 10px;
-    background: red;
+    height: 100px;
+    width: 90%;
+    border: solid black 2px;
+    background: whitesmoke;
 }

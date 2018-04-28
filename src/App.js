@@ -98,20 +98,7 @@ class App extends Component {
           </div>
         </header>
 
-        <div>{cardStuff}</div>
-
-        <input
-          onChange={e => this.enterCardTitle(e)}
-          value={this.state.newTitle}
-          placeholder="New Card title"
-        />
-        <button
-          onClick={() => {
-            this.addCardTitle(this.state.newTitle, this.state.titles);
-          }}
-        >
-          delete this...
-        </button>
+        <div className="resourcesBox">{cardStuff}</div>
       </div>
     );
   }
